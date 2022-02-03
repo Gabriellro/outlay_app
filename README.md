@@ -7,7 +7,7 @@
 
 </p>
 
-O Aplicativo se trata de um app mobile feito em Flutter para controle de despesas pessoais, contendo funcionalidade de CRUD completo e grafico responsivo dos utimos 7 dias, e trazendo uma interface muito intitiva e minimalista além de funcionar com tema escuro diretamente do Smartphone.
+O Aplicativo se trata de um app mobile feito em Flutter para controle de despesas pessoais, contendo funcionalidade de CRUD completo e grafico responsivo dos utimos 7 dias, e trazendo uma interface muito intuitiva e minimalista além de funcionar com tema escuro diretamente do Smartphone.
 
 ## Telas:
 
