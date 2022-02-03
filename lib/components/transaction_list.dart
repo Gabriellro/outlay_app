@@ -18,58 +18,56 @@ class TransactionList extends StatefulWidget {
 class _TransactionListState extends State<TransactionList> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height - 250,
-      child: widget.transactions!.isEmpty
-          ? const Center(
-              child: Text(
-                "Nenhuma despesa cadastrada! :(",
-                style: TextStyle(fontSize: 34),
-                textAlign: TextAlign.center,
-              ),
-            )
-          : ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              itemCount: widget.transactions!.length,
-              itemBuilder: (ctx, index) {
-                final tr = widget.transactions![index];
-                return Dismissible(
-                  key: Key(tr.id),
-                  onDismissed: (direction) {
-                    setState(() {
-                      widget.onRemove(tr.id);
-                    });
-                  },
-                  direction: DismissDirection.endToStart,
-                  background: Container(
-                    alignment: Alignment.centerRight,
-                    color: Colors.red,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Icon(
-                        Icons.delete_rounded,
-                        color: Theme.of(context).cardColor,
-                      ),
-                    ),
-                  ),
-                  child: ListTile(
-                    title: Text(
-                      tr.title,
-                      style: TextStyles.headline6,
-                    ),
-                    subtitle: Text(
-                      DateFormat('d MMM y').format(tr.date),
-                      style: TextStyles.subtitle2,
-                    ),
-                    trailing: Text(
-                      'R\$ ${tr.value.toStringAsFixed(2)}',
-                      style: TextStyles.subtitle1
-                          .copyWith(color: Theme.of(context).errorColor),
-                    ),
-                  ),
-                );
-              },
+    return widget.transactions!.isEmpty
+        ? const Center(
+            child: Text(
+              "Nenhuma despesa cadastrada! :(",
+              style: TextStyle(fontSize: 34),
+              textAlign: TextAlign.center,
             ),
-    );
+          )
+        : ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            itemCount: widget.transactions!.length,
+            reverse: true,
+            itemBuilder: (ctx, index) {
+              final tr = widget.transactions![index];
+              return Dismissible(
+                key: Key(tr.id),
+                onDismissed: (direction) {
+                  setState(() {
+                    widget.onRemove(tr.id);
+                  });
+                },
+                direction: DismissDirection.endToStart,
+                background: Container(
+                  alignment: Alignment.centerRight,
+                  color: Colors.red,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Icon(
+                      Icons.delete_rounded,
+                      color: Theme.of(context).cardColor,
+                    ),
+                  ),
+                ),
+                child: ListTile(
+                  title: Text(
+                    tr.title,
+                    style: TextStyles.headline6,
+                  ),
+                  subtitle: Text(
+                    DateFormat('d MMM y').format(tr.date),
+                    style: TextStyles.subtitle2,
+                  ),
+                  trailing: Text(
+                    'R\$ ${tr.value.toStringAsFixed(2)}',
+                    style: TextStyles.subtitle1
+                        .copyWith(color: Theme.of(context).errorColor),
+                  ),
+                ),
+              );
+            },
+          );
   }
 }

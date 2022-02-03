@@ -83,44 +83,59 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Outlay",
-          style: TextStyle(
-            fontSize: 24,
-            color: Theme.of(context).primaryColor,
-          ),
+    final appbar = AppBar(
+      title: Text(
+        "Outlay",
+        style: TextStyle(
+          fontSize: 24,
+          color: Theme.of(context).primaryColor,
         ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
       ),
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+    );
+
+    final availableheight = MediaQuery.of(context).size.height -
+        MediaQuery.of(context).padding.top -
+        appbar.preferredSize.height;
+
+    return Scaffold(
+      appBar: appbar,
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Chart(recentTransaction: _recentTransactions),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Transações',
-                    style: TextStyle(
-                      fontFamily: 'Quicksand',
-                      fontSize: 16,
-                      letterSpacing: 0.0024000000953674316,
-                      fontWeight: FontWeight.w700,
+            SizedBox(
+              height: availableheight * 0.25,
+              child: Chart(recentTransaction: _recentTransactions),
+            ),
+            SizedBox(
+              height: availableheight * 0.05,
+              child: Row(
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: Text(
+                      'Transações',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      textAlign: TextAlign.left,
                     ),
-                    textAlign: TextAlign.left,
-                  ),
-                  TransactionList(
-                    transactions: _transactions,
-                    onRemove: _removeTransaction,
                   ),
                 ],
+              ),
+            ),
+            SizedBox(
+              height: availableheight * 0.70,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: TransactionList(
+                  transactions: _transactions,
+                  onRemove: _removeTransaction,
+                ),
               ),
             ),
           ],
